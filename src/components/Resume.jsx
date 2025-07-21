@@ -1,53 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { Download, Eye, FileText, Calendar, MapPin, Building, Award, Star, Globe, GraduationCap, ChevronRight, ExternalLink } from 'lucide-react'
+import { Download, FileText, User, Briefcase, GraduationCap, Award, Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react'
+import { portfolioData } from '../data/portfolioData'
 
 const Resume = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1
   })
-  const [activeSection, setActiveSection] = useState('overview')
-
-  const resumeData = {
-    personal: {
-      name: "Raj Kunwar Singh",
-      title: "Full-Stack Developer & Backend Engineer",
-      email: "rajkunwarsingh1729@gmail.com",
-      phone: "+91 9140024467",
-      location: "Delhi, India",
-      website: "rajkunwarsingh.dev",
-      github: "rajkunwar23",
-      linkedin: "rajkunwar23"
-    },
-    summary: "Passionate full-stack developer with 2+ years of experience building scalable web applications and backend systems. Proven track record of optimizing performance, implementing robust architectures, and delivering high-quality solutions that serve real-world business needs.",
-    highlights: [
-      "Built and maintained enterprise insurance software systems",
-      "Founded and grew tech community to 10K+ active members",
-      "Expertise in Python, Django, React, and modern web technologies",
-      "Strong foundation in system design and database optimization"
-    ],
-    education: [
-      {
-        degree: "Bachelor of Technology in Electronics and Communication Engineering",
-        institution: "Guru Gobind Singh Indraprastha University",
-        duration: "2020 - 2024",
-        grade: "8.2/10 CGPA",
-        location: "Delhi, India"
-      }
-    ],
-    certifications: [
-      "AWS Cloud Practitioner (In Progress)",
-      "Python Django Web Development",
-      "Full Stack Web Development"
-    ]
-  }
-
-  const sections = [
-    { id: 'overview', name: 'Overview', icon: FileText },
-    { id: 'education', name: 'Education', icon: GraduationCap }
-  ]
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -72,243 +33,222 @@ const Resume = () => {
     }
   }
 
-  const handleDownloadResume = () => {
-    // Create a link element and trigger download
-    const link = document.createElement('a')
-    link.href = '/RajKunwarSingh.pdf'
-    link.download = 'RajKunwarSingh_Resume.pdf'
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-  }
-
-  const handleViewOnline = () => {
-    // Open PDF in a new tab
-    window.open('/RajKunwarSingh.pdf', '_blank')
-  }
-
   return (
-    <section id="resume" className="py-20 bg-white dark:bg-black relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="resume" className="py-20 bg-gray-50 dark:bg-zinc-950 relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-grid-gray-900/[0.04] dark:bg-grid-white/[0.02] bg-[size:60px_60px]" />
+      
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           variants={containerVariants}
+          className="space-y-16"
         >
           {/* Header */}
-          <motion.div variants={itemVariants} className="text-center mb-16">
+          <motion.div variants={itemVariants} className="text-center">
             <div className="flex items-center justify-center gap-3 mb-6">
               <div className="w-8 h-8 flex items-center justify-center">
-                <FileText className="w-6 h-6 text-green-500" />
+                <Briefcase className="w-6 h-6 text-green-500" />
               </div>
               <span className="text-green-500 font-medium uppercase tracking-wide text-sm">
-                Resume
+                Career Journey
               </span>
             </div>
             
             <h2 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              Professional
-              <br />
+              <span className="font-display">Professional </span>
               <span className="bg-gradient-to-r from-green-400 via-emerald-500 to-teal-600 bg-clip-text text-transparent">
-                Profile
+                Experience
               </span>
             </h2>
             
             <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl mx-auto mb-8">
-              A comprehensive overview of my professional background, education, and achievements in software development.
+              {portfolioData.resume.summary}
             </p>
 
-            {/* Download/View Buttons */}
+            {/* Download Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button
-                onClick={handleDownloadResume}
-                className="flex items-center gap-3 px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-xl hover:scale-105"
-                whileHover={{ y: -2 }}
+              <motion.a
+                href={portfolioData.personal.resumeUrl}
+                download="RajKunwarSingh_Resume.pdf"
+                className="inline-flex items-center gap-3 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-xl group"
+                whileHover={{ y: -2, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Download className="w-5 h-5" />
-                <span>Download Resume</span>
-              </motion.button>
-              <motion.button
-                onClick={handleViewOnline}
-                className="flex items-center gap-3 px-8 py-4 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105"
-                whileHover={{ y: -2 }}
+                <Download className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
+                Download PDF
+              </motion.a>
+              
+              <motion.a
+                href={portfolioData.personal.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-6 py-3 bg-white dark:bg-zinc-800 hover:bg-gray-50 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl border border-gray-200 dark:border-zinc-600 transition-all duration-300 hover:shadow-lg group"
+                whileHover={{ y: -2, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Eye className="w-5 h-5" />
-                <span>View Online</span>
-              </motion.button>
+                <FileText className="w-5 h-5" />
+                View Online
+              </motion.a>
             </div>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            {/* Navigation Sidebar */}
-            <motion.div variants={itemVariants} className="lg:col-span-1">
-              <div className="sticky top-8 space-y-2">
-                {sections.map((section) => (
-                  <motion.button
-                    key={section.id}
-                    onClick={() => setActiveSection(section.id)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all duration-300 ${
-                      activeSection === section.id
-                        ? 'bg-green-600 text-white shadow-lg'
-                        : 'bg-gray-50 dark:bg-zinc-900/50 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800'
-                    }`}
-                    whileHover={{ x: 5 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <section.icon className="w-5 h-5" />
-                    <span className="font-medium">{section.name}</span>
-                    <ChevronRight className={`w-4 h-4 ml-auto transition-transform ${
-                      activeSection === section.id ? 'rotate-90' : ''
-                    }`} />
-                  </motion.button>
+          {/* Resume Content */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Left Column - Skills */}
+            <motion.div variants={itemVariants} className="lg:col-span-1 space-y-8">
+              {/* Technical Skills */}
+              <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-sm border border-gray-200 dark:border-zinc-700/50 rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <Award className="w-6 h-6 text-green-600" />
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                    Technical Skills
+                  </h3>
+                </div>
+                
+                <div className="space-y-4">
+                  {/* Group skills by category and show top skills */}
+                  {['languages', 'frameworks', 'databases', 'cloud'].map(category => {
+                    const categorySkills = portfolioData.skills
+                      .filter(skill => skill.category === category)
+                      .sort((a, b) => b.mastery - a.mastery)
+                      .slice(0, 3);
+                    
+                    if (categorySkills.length === 0) return null;
+                    
+                    return (
+                      <div key={category}>
+                        <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2 capitalize">
+                          {category}
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {categorySkills.map(skill => (
+                            <span 
+                              key={skill.name}
+                              className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs font-medium"
+                            >
+                              {skill.name}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* Education */}
+              <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-sm border border-gray-200 dark:border-zinc-700/50 rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <GraduationCap className="w-6 h-6 text-green-600" />
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                    Education
+                  </h3>
+                </div>
+                
+                {portfolioData.education.map((edu, index) => (
+                  <div key={index} className="space-y-2">
+                    <h4 className="font-semibold text-gray-900 dark:text-white text-sm">
+                      {edu.degree}
+                    </h4>
+                    <p className="text-green-600 font-medium text-sm">
+                      {edu.institution}
+                    </p>
+                    <p className="text-gray-600 dark:text-gray-400 text-xs">
+                      {edu.duration} • {edu.grade}
+                    </p>
+                  </div>
                 ))}
               </div>
             </motion.div>
 
-            {/* Content Area */}
-            <motion.div variants={itemVariants} className="lg:col-span-3">
-              <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-sm rounded-2xl border border-gray-200 dark:border-zinc-700/50 p-8">
+            {/* Right Column - Experience & Highlights */}
+            <motion.div variants={itemVariants} className="lg:col-span-2 space-y-8">
+              {/* Professional Experience */}
+              <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-sm border border-gray-200 dark:border-zinc-700/50 rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <Briefcase className="w-6 h-6 text-green-600" />
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                    Professional Experience
+                  </h3>
+                </div>
                 
-                {/* Overview Section */}
-                {activeSection === 'overview' && (
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                      Professional Overview
-                    </h3>
-                    
-                    {/* Personal Info */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                      <div>
-                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                          Contact Information
-                        </h4>
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
-                            <Building className="w-4 h-4" />
-                            <span>{resumeData.personal.title}</span>
-                          </div>
-                          <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
-                            <MapPin className="w-4 h-4" />
-                            <span>{resumeData.personal.location}</span>
-                          </div>
-                          <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
-                            <Globe className="w-4 h-4" />
-                            <a href={`https://${resumeData.personal.website}`} target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition-colors">
-                              {resumeData.personal.website}
-                            </a>
-                          </div>
-                          <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
-                            <ExternalLink className="w-4 h-4" />
-                            <a href={`https://github.com/${resumeData.personal.github}`} target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition-colors">
-                              github.com/{resumeData.personal.github}
-                            </a>
+                <div className="space-y-8">
+                  {portfolioData.experience.map((job, index) => (
+                    <div key={job.id} className="relative">
+                      {index !== portfolioData.experience.length - 1 && (
+                        <div className="absolute left-6 top-12 bottom-0 w-px bg-gray-200 dark:bg-zinc-700"></div>
+                      )}
+                      
+                      <div className="flex gap-4">
+                        <div className="flex-shrink-0">
+                          <div className={`w-12 h-12 bg-gradient-to-br ${job.gradient} rounded-xl flex items-center justify-center text-xl`}>
+                            {job.companyLogo}
                           </div>
                         </div>
-                      </div>
-
-                      <div>
-                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                          Key Achievements
-                        </h4>
-                        <div className="space-y-2">
-                          {resumeData.highlights.map((highlight, index) => (
-                            <div key={index} className="flex items-start gap-2">
-                              <Star className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                              <span className="text-gray-600 dark:text-gray-400 text-sm">
-                                {highlight}
+                        
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-wrap items-center gap-2 mb-2">
+                            <h4 className="font-bold text-gray-900 dark:text-white">
+                              {job.role}
+                            </h4>
+                            {job.featured && (
+                              <span className="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded-full text-xs font-medium">
+                                Current
                               </span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Summary */}
-                    <div className="p-6 bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-xl border border-green-500/20">
-                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                        Professional Summary
-                      </h4>
-                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                        {resumeData.summary}
-                      </p>
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* Education Section */}
-                {activeSection === 'education' && (
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                      Education & Certifications
-                    </h3>
-                    
-                    <div className="space-y-8">
-                      {/* Education */}
-                      <div>
-                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                          Education
-                        </h4>
-                        {resumeData.education.map((edu, index) => (
-                          <div key={index} className="p-6 border border-gray-200 dark:border-zinc-700/50 rounded-xl">
-                            <div className="flex items-start justify-between">
-                              <div>
-                                <h5 className="text-lg font-bold text-gray-900 dark:text-white">
-                                  {edu.degree}
-                                </h5>
-                                <p className="text-green-600 dark:text-green-400 font-medium">
-                                  {edu.institution}
-                                </p>
-                                <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mt-2">
-                                  <span className="flex items-center gap-1">
-                                    <Calendar className="w-3 h-3" />
-                                    {edu.duration}
-                                  </span>
-                                  <span className="flex items-center gap-1">
-                                    <MapPin className="w-3 h-3" />
-                                    {edu.location}
-                                  </span>
-                                </div>
-                              </div>
-                              <div className="text-right">
-                                <div className="text-lg font-bold text-green-600 dark:text-green-400">
-                                  {edu.grade}
-                                </div>
-                              </div>
-                            </div>
+                            )}
                           </div>
-                        ))}
-                      </div>
-
-                      {/* Certifications */}
-                      <div>
-                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                          Certifications
-                        </h4>
-                        <div className="space-y-3">
-                          {resumeData.certifications.map((cert, index) => (
-                            <div key={index} className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-zinc-800/50 rounded-lg">
-                              <Award className="w-5 h-5 text-green-500" />
-                              <span className="font-medium text-gray-900 dark:text-white">
-                                {cert}
-                              </span>
-                            </div>
-                          ))}
+                          
+                          <p className={`font-semibold text-sm bg-gradient-to-r ${job.gradient} bg-clip-text text-transparent mb-1`}>
+                            {job.company}
+                          </p>
+                          
+                          <p className="text-gray-600 dark:text-gray-400 text-xs mb-3">
+                            {job.duration} • {job.location}
+                          </p>
+                          
+                          <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-3">
+                            {job.description}
+                          </p>
+                          
+                          <div className="space-y-1">
+                            {job.highlights.slice(0, 3).map((highlight, idx) => (
+                              <div key={idx} className="flex items-start gap-2">
+                                <div className="w-1 h-1 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                                <span className="text-gray-600 dark:text-gray-400 text-xs leading-relaxed">
+                                  {highlight}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </motion.div>
-                )}
+                  ))}
+                </div>
+              </div>
+
+              {/* Key Highlights */}
+              <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-sm border border-gray-200 dark:border-zinc-700/50 rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <Award className="w-6 h-6 text-green-600" />
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                    Key Highlights
+                  </h3>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {portfolioData.resume.highlights.map((highlight, index) => (
+                    <div key={index} className="flex items-start gap-3 p-4 bg-gray-50 dark:bg-zinc-800/30 rounded-xl">
+                      <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                      <span className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                        {highlight}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </motion.div>
           </div>

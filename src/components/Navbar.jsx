@@ -18,17 +18,22 @@ const Navbar = () => {
   }, [])
 
   const navItems = [
-    { name: 'Experience', href: '#experience', icon: User },
+    { name: 'Resume', href: '#resume', icon: User },
     { name: 'Skills', href: '#skills', icon: Code },
     { name: 'Projects', href: '#projects', icon: Database },
-    { name: 'Resume', href: '#resume', icon: FileText },
+    { name: 'Blog', href: '/blog', icon: FileText },
     { name: 'Contact', href: '#contact', icon: Mail },
   ]
 
   const scrollToSection = (href) => {
-    const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+    if (href.startsWith('#')) {
+      const element = document.querySelector(href)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    } else {
+      // Handle external routes
+      window.location.href = href
     }
     setIsOpen(false)
   }

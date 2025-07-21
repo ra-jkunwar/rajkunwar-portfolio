@@ -2,6 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { ChevronDown, Github, Linkedin, Mail, Instagram } from 'lucide-react'
 import TextType from './TextType'
+import { portfolioData } from '../data/portfolioData'
 
 const Hero = () => {
   // Floating animation for tech icons
@@ -13,18 +14,6 @@ const Hero = () => {
       ease: "easeInOut"
     }
   }
-
-  // Tech stack icons
-  const techStack = [
-    { name: 'Python', icon: '🐍' },
-    { name: 'Django', icon: '🎯' },
-    { name: 'React', icon: '⚛️' },
-    { name: 'PostgreSQL', icon: '🐘' },
-    { name: 'AWS', icon: '☁️' },
-    { name: 'Docker', icon: '🐳' },
-    { name: 'JavaScript', icon: '⚡' },
-    { name: 'Node.js', icon: '💚' }
-  ]
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -69,12 +58,12 @@ const Hero = () => {
       
       {/* Floating Tech Icons */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {techStack.map((tech, index) => (
+        {portfolioData.techStack.map((tech, index) => (
           <motion.div
             key={tech.name}
             className="absolute"
             style={{
-              left: `${15 + (index * 10)}%`,
+              left: `${15 + (index * 9)}%`,
               top: `${20 + (index % 3) * 25}%`,
             }}
             variants={iconVariants}
@@ -100,8 +89,10 @@ const Hero = () => {
               </div>
               
               {/* Tooltip */}
-              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-black/80 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                {tech.name}
+              <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                <div className="bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+                  {tech.name}
+                </div>
               </div>
               
               {/* Glow effect */}
@@ -121,15 +112,9 @@ const Hero = () => {
         {/* Greeting */}
         <motion.div variants={textVariants} className="mb-6">
           <span className="text-lg text-gray-600 dark:text-gray-400">
-            Hey! It's me <span className="font-semibold">Raj</span>, I'm a{' '}
+            {portfolioData.hero.greeting}{' '}
             <TextType 
-              texts={[
-                'Full-Stack Developer',
-                'Backend Engineer', 
-                'Software Engineer',
-                'Community Builder',
-                'Problem Solver'
-              ]}
+              texts={portfolioData.hero.typewriterTexts}
               speed={100}
               deleteSpeed={50}
               pauseTime={2000}
@@ -144,15 +129,15 @@ const Hero = () => {
           className="text-5xl md:text-7xl font-bold mb-8 leading-tight"
         >
           <span className="text-gray-900 dark:text-white">
-            Building scalable
+            {portfolioData.hero.headline.line1}
           </span>
           <br />
           <span className="bg-gradient-to-r from-green-400 via-emerald-500 to-teal-600 bg-clip-text text-transparent">
-            solutions that matter
+            {portfolioData.hero.headline.line2}
           </span>
           <br />
           <span className="text-gray-900 dark:text-white">
-            & inspire growth.
+            {portfolioData.hero.headline.line3}
           </span>
         </motion.h1>
 
@@ -161,8 +146,7 @@ const Hero = () => {
           variants={textVariants}
           className="text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed"
         >
-          Passionate about creating robust backend systems and engaging user experiences. 
-          From enterprise software to community platforms, I build solutions that make a difference.
+          {portfolioData.hero.description}
         </motion.p>
 
         {/* Social Links */}
@@ -171,10 +155,10 @@ const Hero = () => {
           className="flex items-center justify-center gap-6 mb-12"
         >
           {[
-            { icon: Github, href: "https://github.com/rajkunwar23", label: "GitHub" },
-            { icon: Linkedin, href: "https://linkedin.com/in/rajkunwar23", label: "LinkedIn" },
+            { icon: Github, href: portfolioData.social.github, label: "GitHub" },
+            { icon: Linkedin, href: portfolioData.social.linkedin, label: "LinkedIn" },
             { icon: Mail, href: "#contact", label: "Email" },
-            { icon: Instagram, href: "https://instagram.com/raj_kunwar23", label: "Instagram" }
+            { icon: Instagram, href: portfolioData.social.instagram, label: "Instagram" }
           ].map((social, index) => (
             <motion.a
               key={social.label}
@@ -196,50 +180,24 @@ const Hero = () => {
           ))}
         </motion.div>
 
-        {/* CTA Buttons */}
-        <motion.div 
-          variants={textVariants}
-          className="flex flex-col sm:flex-row gap-6 justify-center items-center"
-        >
-          <motion.a
-            href="#experience"
-            className="group px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-xl flex items-center gap-3"
-            whileHover={{ y: -2, scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span>View My Work</span>
-            <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
-          </motion.a>
-          
-          <motion.a
-            href="#contact"
-            className="group px-8 py-4 bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 text-gray-700 dark:text-gray-300 font-semibold rounded-xl transition-all duration-300 hover:shadow-lg flex items-center gap-3"
-            whileHover={{ y: -2, scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span>Get In Touch</span>
-            <Mail className="w-5 h-5" />
-          </motion.a>
-        </motion.div>
-      </motion.div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-      >
+        {/* Scroll Indicator */}
         <motion.div
-          className="w-6 h-10 border-2 border-gray-400 dark:border-gray-600 rounded-full flex justify-center"
-          animate={{ y: [0, 5, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
+          variants={textVariants}
+          className="flex flex-col items-center"
         >
+          <span className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+            Scroll to explore
+          </span>
           <motion.div
-            className="w-1 h-3 bg-gray-400 dark:bg-gray-600 rounded-full mt-2"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          />
+            animate={{ y: [0, 10, 0] }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            <ChevronDown className="w-6 h-6 text-gray-400" />
+          </motion.div>
         </motion.div>
       </motion.div>
     </section>

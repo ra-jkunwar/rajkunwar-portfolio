@@ -63,8 +63,49 @@ export default {
         }
       },
       fontFamily: {
-        'mono': ['JetBrains Mono', 'Fira Code', 'monospace'],
-        'sans': ['Inter', 'system-ui', 'sans-serif'],
+        'sans': [
+          'Inter Variable',
+          'Inter',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
+          'Arial',
+          'sans-serif'
+        ],
+        'mono': [
+          'JetBrains Mono Variable',
+          'JetBrains Mono',
+          'Fira Code Variable',
+          'Fira Code',
+          'SF Mono',
+          'Monaco',
+          'Inconsolata',
+          'Roboto Mono',
+          'Source Code Pro',
+          'Menlo',
+          'Consolas',
+          'monospace'
+        ],
+        'display': [
+          'Cal Sans',
+          'SF Pro Display',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Inter Variable',
+          'Inter',
+          'sans-serif'
+        ],
+        'heading': [
+          'Clash Display Variable',
+          'Clash Display',
+          'Cal Sans',
+          'SF Pro Display',
+          'Inter Variable',
+          'Inter',
+          'sans-serif'
+        ]
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',

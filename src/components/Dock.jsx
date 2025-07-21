@@ -9,17 +9,22 @@ const Dock = () => {
 
   const navItems = [
     { name: 'Home', href: '#hero', icon: Home, color: 'text-green-500' },
-    { name: 'Experience', href: '#experience', icon: User, color: 'text-blue-500' },
+    { name: 'Resume', href: '#resume', icon: User, color: 'text-blue-500' },
     { name: 'Skills', href: '#skills', icon: Code, color: 'text-purple-500' },
     { name: 'Projects', href: '#projects', icon: FolderOpen, color: 'text-orange-500' },
-    { name: 'Resume', href: '#resume', icon: FileText, color: 'text-red-500' },
+    { name: 'Blog', href: '/blog', icon: FileText, color: 'text-red-500' },
     { name: 'Contact', href: '#contact', icon: Mail, color: 'text-cyan-500' },
   ]
 
   const scrollToSection = (href) => {
-    const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+    if (href.startsWith('#')) {
+      const element = document.querySelector(href)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    } else {
+      // Handle external routes
+      window.location.href = href
     }
   }
 

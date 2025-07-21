@@ -12,9 +12,10 @@ const Footer = () => {
   const footerLinks = {
     main: [
       { name: 'Home', href: '#hero' },
-      { name: 'Experience', href: '#experience' },
+      { name: 'Resume', href: '#resume' },
       { name: 'Skills', href: '#skills' },
       { name: 'Projects', href: '#projects' },
+      { name: 'Blog', href: '/blog' },
       { name: 'Contact', href: '#contact' }
     ],
     social: [

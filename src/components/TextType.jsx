@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 const TextType = ({ 
   texts = ['Developer', 'Engineer', 'Creator'], 
@@ -14,13 +14,6 @@ const TextType = ({
   const [currentText, setCurrentText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
-
-  // Calculate the width needed for the longest text to prevent layout shifts
-  const maxWidth = useMemo(() => {
-    const longestText = texts.reduce((a, b) => a.length > b.length ? a : b, '')
-    // Approximate character width (adjust as needed)
-    return `${longestText.length * 0.6}em`
-  }, [texts])
 
   useEffect(() => {
     const fullText = texts[currentTextIndex]
@@ -52,25 +45,9 @@ const TextType = ({
   }, [currentText, currentTextIndex, isDeleting, isPaused, texts, speed, deleteSpeed, pauseTime])
 
   return (
-    <span className={`inline-flex items-center ${className}`}>
-      <span 
-        className="text-green-500 inline-block"
-        style={{ 
-          minWidth: maxWidth,
-          textAlign: 'left'
-        }}
-      >
-        <AnimatePresence mode="wait">
-          <motion.span
-            key={`${currentTextIndex}-${currentText.length}`}
-            initial={{ opacity: 0.8 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0.8 }}
-            transition={{ duration: 0.1 }}
-          >
-            {currentText}
-          </motion.span>
-        </AnimatePresence>
+    <>
+      <span className={`text-green-500 ${className}`}>
+        {currentText}
       </span>
       {showCursor && (
         <motion.span
@@ -81,12 +58,12 @@ const TextType = ({
             repeatType: "reverse",
             ease: "easeInOut"
           }}
-          className="ml-1 text-green-500 font-bold"
+          className="text-green-500 font-bold"
         >
           {cursorChar}
         </motion.span>
       )}
-    </span>
+    </>
   )
 }
 

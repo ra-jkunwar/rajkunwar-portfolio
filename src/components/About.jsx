@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer'
 import ProfileCard from './ProfileCard'
 import TextType from './TextType'
 import { User, Code, Heart, Target } from 'lucide-react'
+import { portfolioData } from '../data/portfolioData'
 
 const About = () => {
   const [ref, inView] = useInView({
@@ -59,12 +60,7 @@ const About = () => {
             <h2 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
               Get to Know{' '}
               <TextType 
-                texts={[
-                  'the Developer',
-                  'the Person', 
-                  'My Story',
-                  'My Journey'
-                ]}
+                texts={portfolioData.about.typewriterTexts}
                 speed={100}
                 deleteSpeed={50}
                 pauseTime={2000}
@@ -73,18 +69,17 @@ const About = () => {
             </h2>
             
             <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl mx-auto">
-              Discover my professional journey, current activities, and what drives me as a developer. 
-              Connect with me and explore opportunities to work together.
+              {portfolioData.about.description}
             </p>
           </motion.div>
 
           {/* Main Content */}
-          <div className="grid grid-cols-1 lg:grid-cols-1 gap-8 max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             {/* Profile Card - Full width */}
-            <motion.div variants={itemVariants} className="lg:col-span-1">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full">
+            <motion.div variants={itemVariants}>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                 {/* Profile Card */}
-                <div className="space-y-4">
+                <div className="space-y-4 flex flex-col items-center">
                   <div className="text-center">
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                       Professional Profile
@@ -94,7 +89,7 @@ const About = () => {
                     </p>
                   </div>
                   <ProfileCard 
-                    className="h-fit" 
+                    className="w-full max-w-sm mx-auto" 
                     onContactClick={() => {
                       document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
                     }}
@@ -118,8 +113,7 @@ const About = () => {
                       </h3>
                     </div>
                     <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      To build scalable, efficient, and user-centric applications that solve real-world problems. 
-                      I believe technology should enhance human experiences and drive meaningful innovation.
+                      {portfolioData.about.mission}
                     </p>
                   </motion.div>
 
@@ -138,8 +132,7 @@ const About = () => {
                       </h3>
                     </div>
                     <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      Clean code, system design, mentoring developers, and exploring new technologies. 
-                      I'm passionate about performance optimization and building robust architectures.
+                      {portfolioData.about.passion}
                     </p>
                   </motion.div>
 
@@ -158,17 +151,10 @@ const About = () => {
                       </h3>
                     </div>
                     <div className="space-y-2">
-                      {[
-                        "Quality over quantity",
-                        "Continuous learning",
-                        "Team collaboration",
-                        "User-first approach"
-                      ].map((value, index) => (
+                      {portfolioData.about.values.map((value, index) => (
                         <div key={index} className="flex items-center gap-2">
-                          <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                          <span className="text-gray-600 dark:text-gray-400 text-sm">
-                            {value}
-                          </span>
+                          <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                          <span className="text-gray-600 dark:text-gray-400 text-sm">{value}</span>
                         </div>
                       ))}
                     </div>
@@ -176,12 +162,10 @@ const About = () => {
                 </div>
               </div>
             </motion.div>
-
-
           </div>
 
           {/* Bottom Section - Stats/Achievements */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {[
               { 
                 number: "50+", 
@@ -194,12 +178,6 @@ const About = () => {
                 label: "Years Experience", 
                 description: "In full-stack development",
                 icon: "⚡"
-              },
-              { 
-                number: "25+", 
-                label: "Happy Clients", 
-                description: "Across different industries",
-                icon: "🤝"
               },
               { 
                 number: "99.9%", 

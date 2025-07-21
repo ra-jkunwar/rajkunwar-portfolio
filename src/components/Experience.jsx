@@ -2,7 +2,8 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useColorScheme } from '../context/ColorSchemeContext'
-import { MapPin, Calendar, Star } from 'lucide-react'
+import { MapPin, Calendar, Star, Briefcase, Users, Code, TrendingUp } from 'lucide-react'
+import { portfolioData } from '../data/portfolioData'
 
 const Experience = () => {
   const { currentColors } = useColorScheme()
@@ -11,79 +12,22 @@ const Experience = () => {
     threshold: 0.1
   })
 
-  const workHistory = [
-    {
-      id: 1,
-      role: "Software Engineer",
-      company: "OneShield Software",
-      companyLogo: "🛡️",
-      location: "Remote",
-      duration: "Aug 2022 — Present",
-      type: "Full-time",
-      description: "Working on enterprise insurance software solutions, developing scalable backend systems and optimizing performance for large-scale applications.",
-      achievements: [
-        "Developed and maintained microservices architecture for insurance platforms",
-        "Implemented efficient database solutions and optimized query performance",
-        "Collaborated with cross-functional teams on feature development",
-        "Contributed to code quality improvements and best practices"
-      ],
-      technologies: ["Python", "Django", "PostgreSQL", "Redis", "AWS", "Docker"],
-      featured: true
-    },
-    {
-      id: 2,
-      role: "Founder & Community Builder",
-      company: "Design and Code",
-      companyLogo: "🎨",
-      location: "Remote",
-      duration: "Jan 2021 — Present",
-      type: "Entrepreneurship",
-      description: "Founded a community-driven platform connecting designers and developers. Built from ground up and grew to serve thousands of active members in the tech community.",
-      achievements: [
-        "Built and grew tech community to 10K+ active members",
-        "Organized workshops, webinars, and knowledge-sharing events",
-        "Developed community platform with engagement features",
-        "Created educational content and mentorship programs"
-      ],
-      technologies: ["React", "Node.js", "MongoDB", "Discord API", "Community Management"],
-      featured: true
-    },
-    {
-      id: 3,
-      role: "Full Stack Developer",
-      company: "Freelance Projects",
-      companyLogo: "💻",
-      location: "Remote",
-      duration: "2020 — 2022",
-      type: "Freelance",
-      description: "Worked on various web development projects, building responsive websites and web applications for clients across different industries.",
-      achievements: [
-        "Delivered 15+ successful web development projects",
-        "Built responsive websites using modern frontend frameworks",
-        "Implemented backend APIs and database solutions",
-        "Maintained high client satisfaction and project delivery rates"
-      ],
-      technologies: ["HTML/CSS", "JavaScript", "React", "Python", "Django", "MySQL"],
-      featured: false
-    }
-  ]
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
         duration: 0.8,
-        staggerChildren: 0.2
+        staggerChildren: 0.15
       }
     }
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, x: -30 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
-      x: 0,
+      y: 0,
       transition: {
         duration: 0.6,
         ease: "easeOut"
@@ -91,25 +35,12 @@ const Experience = () => {
     }
   }
 
-  const timelineVariants = {
-    hidden: { scaleY: 0 },
-    visible: {
-      scaleY: 1,
-      transition: {
-        duration: 1.2,
-        ease: "easeOut"
-      }
-    }
-  }
-
   return (
-    <section 
-      id="experience" 
-      className={`py-20 ${currentColors.section.primary} relative overflow-hidden`}
-    >
-      <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 via-blue-500/5 to-purple-500/5 dark:from-green-500/10 dark:via-blue-500/10 dark:to-purple-500/10"></div>
+    <section id="experience" className="py-20 bg-white dark:bg-black relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-grid-gray-900/[0.04] dark:bg-grid-white/[0.02] bg-[size:60px_60px]" />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
           initial="hidden"
@@ -117,184 +48,155 @@ const Experience = () => {
           variants={containerVariants}
           className="space-y-16"
         >
-          {/* Header */}
+          {/* Section Header */}
           <motion.div variants={itemVariants} className="text-center">
             <div className="flex items-center justify-center gap-3 mb-6">
               <div className="w-8 h-8 flex items-center justify-center">
-                <Star className="w-6 h-6 text-green-500" />
+                <Briefcase className="w-6 h-6 text-green-500" />
               </div>
               <span className="text-green-500 font-medium uppercase tracking-wide text-sm">
-                Career Journey
+                Professional Journey
               </span>
             </div>
             
             <h2 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              Professional
-              <br />
+              <span className="font-display">Work </span>
               <span className="bg-gradient-to-r from-green-400 via-emerald-500 to-teal-600 bg-clip-text text-transparent">
                 Experience
               </span>
             </h2>
             
             <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl mx-auto">
-              My journey through the world of software development, from building communities to developing enterprise solutions.
+              A collection of my professional experiences, highlighting key achievements, 
+              technologies mastered, and the impact I've made in each role.
             </p>
           </motion.div>
 
           {/* Experience Timeline */}
-          <motion.div variants={itemVariants} className="relative">
-            {/* Timeline Line */}
-            <motion.div 
-              className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-green-500 to-blue-500 origin-top"
-              variants={timelineVariants}
-            />
-
-            <div className="space-y-12">
-              {workHistory.map((job, index) => (
-                <motion.div
-                  key={job.id}
-                  variants={itemVariants}
-                  className="relative flex items-start space-x-8"
-                >
-                  {/* Timeline Node */}
-                  <div className="relative z-10 flex-shrink-0">
-                    <motion.div 
-                      className={`w-16 h-16 rounded-full border-4 ${
-                        job.featured 
-                          ? 'border-green-500 bg-white dark:bg-gray-900' 
-                          : 'border-blue-500 bg-white dark:bg-gray-900'
-                      } flex items-center justify-center text-2xl shadow-lg`}
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      {job.companyLogo}
-                    </motion.div>
-                    
-                    {/* Glow Effect for Featured */}
-                    {job.featured && (
-                      <motion.div
-                        className="absolute inset-0 rounded-full bg-green-500/20 blur-xl"
-                        animate={{
-                          scale: [1, 1.2, 1],
-                          opacity: [0.3, 0.6, 0.3]
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      />
-                    )}
-                  </div>
-
-                  {/* Content Card */}
-                  <motion.div
-                    className={`flex-1 ${currentColors.card.background} ${currentColors.card.border} border rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300`}
-                    whileHover={{ y: -4, scale: 1.02 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    {/* Header */}
-                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
-                      <div>
-                        <div className="flex items-center gap-3 mb-2">
-                          <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                            {job.role}
-                          </h3>
-                          {job.featured && (
-                            <span className="px-2 py-1 text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full">
-                              Featured
-                            </span>
-                          )}
+          <div className="space-y-12">
+            {portfolioData.experience.map((job, index) => (
+              <motion.div
+                key={job.id}
+                variants={itemVariants}
+                className="group relative"
+              >
+                <div className="bg-white dark:bg-zinc-900/50 backdrop-blur-sm border border-gray-200 dark:border-zinc-700/50 rounded-3xl p-8 lg:p-10 hover:shadow-2xl transition-all duration-500 hover:scale-[1.01]">
+                  
+                  {/* Job Header */}
+                  <div className="grid lg:grid-cols-12 gap-8 mb-10">
+                    <div className="lg:col-span-9 space-y-6">
+                      <div className="flex items-start gap-6">
+                        <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${job.gradient} flex items-center justify-center text-3xl shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
+                          {job.companyLogo}
                         </div>
-                        
-                        <h4 className="text-xl font-semibold text-green-600 dark:text-green-400 mb-2">
-                          {job.company}
-                        </h4>
-                        
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-gray-500 dark:text-gray-400">
-                          <span className="flex items-center gap-2">
-                            <Calendar className="w-4 h-4" />
-                            {job.duration}
-                          </span>
-                          <span className="flex items-center gap-2">
-                            <MapPin className="w-4 h-4" />
-                            {job.location}
-                          </span>
-                          <span className="px-2 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-800 rounded-full">
-                            {job.type}
-                          </span>
+                        <div className="space-y-4 min-w-0 flex-1">
+                          <div className="flex flex-wrap items-center gap-3">
+                            <h3 className="font-display text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white leading-tight">
+                              {job.role}
+                            </h3>
+                            {job.featured && (
+                              <div className="flex items-center gap-2 px-3 py-1 bg-yellow-100/80 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300 rounded-full border border-yellow-200 dark:border-yellow-700 backdrop-blur-sm">
+                                <Star className="w-4 h-4 fill-current" />
+                                <span className="text-xs font-bold">Featured</span>
+                              </div>
+                            )}
+                          </div>
+                          <h4 className={`text-xl lg:text-2xl font-bold bg-gradient-to-r ${job.gradient} bg-clip-text text-transparent leading-tight`}>
+                            {job.company}
+                          </h4>
+                          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                            <div className="flex items-center gap-2">
+                              <MapPin className="w-4 h-4" />
+                              <span>{job.location}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Calendar className="w-4 h-4" />
+                              <span>{job.duration}</span>
+                            </div>
+                            <div className="px-3 py-1 bg-gray-100 dark:bg-zinc-800 rounded-full">
+                              <span className="text-xs font-medium">{job.type}</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
+                    <div className="lg:col-span-3 lg:text-right">
+                      <div className="inline-flex items-center gap-3 px-4 py-3 bg-gray-50/80 dark:bg-gray-800/80 rounded-xl border border-gray-200 dark:border-gray-700 backdrop-blur-sm">
+                        {job.featured ? <Briefcase className="w-6 h-6" /> : <Code className="w-6 h-6" />}
+                        <span className="font-bold text-gray-900 dark:text-white">{job.period}</span>
+                      </div>
+                    </div>
+                  </div>
 
-                    {/* Description */}
-                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                  {/* Job Description */}
+                  <div className="space-y-8">
+                    <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
                       {job.description}
                     </p>
 
-                    {/* Achievements */}
-                    <div className="mb-6">
-                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                        Key Achievements:
-                      </h4>
-                      <ul className="space-y-2">
-                        {job.achievements.map((achievement, idx) => (
-                          <li key={idx} className="flex items-start gap-3 text-gray-600 dark:text-gray-400">
-                            <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
-                            <span>{achievement}</span>
-                          </li>
+                    {/* Key Highlights */}
+                    <div>
+                      <h5 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+                        Key Highlights
+                      </h5>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        {job.highlights.map((highlight, idx) => (
+                          <div key={idx} className="flex items-start gap-3 p-4 bg-gray-50/50 dark:bg-zinc-800/30 rounded-xl">
+                            <div className="w-2 h-2 bg-green-500 rounded-full mt-3 flex-shrink-0" />
+                            <span className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                              {highlight}
+                            </span>
+                          </div>
                         ))}
-                      </ul>
+                      </div>
                     </div>
 
-                    {/* Technologies */}
+                    {/* Technologies Used */}
                     <div>
-                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                        Technologies:
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
+                      <h5 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+                        Technologies & Tools
+                      </h5>
+                      <div className="flex flex-wrap gap-3">
                         {job.technologies.map((tech, idx) => (
                           <span
                             key={idx}
-                            className="px-3 py-1 bg-gray-100 dark:bg-zinc-700 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg border border-gray-200 dark:border-zinc-600"
+                            className="px-4 py-2 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-zinc-800 dark:to-zinc-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium text-sm border border-gray-200 dark:border-zinc-600 hover:scale-105 transition-transform duration-200"
                           >
                             {tech}
                           </span>
                         ))}
                       </div>
                     </div>
-                  </motion.div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Stats Section */}
-          <motion.div 
-            variants={itemVariants}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6"
-          >
-            {[
-              { label: "Years Experience", value: "2+", icon: "📅" },
-              { label: "Projects Completed", value: "20+", icon: "🚀" },
-              { label: "Community Members", value: "10K+", icon: "👥" },
-              { label: "Technologies Used", value: "15+", icon: "⚡" }
-            ].map((stat, index) => (
-              <motion.div
-                key={index}
-                className={`${currentColors.card.background} ${currentColors.card.border} border rounded-xl p-6 text-center hover:shadow-lg transition-shadow duration-300`}
-                whileHover={{ scale: 1.05, y: -2 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <div className="text-3xl mb-2">{stat.icon}</div>
-                <div className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
-                  {stat.label}
+                  </div>
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          {/* Experience Stats */}
+          <motion.div variants={itemVariants} className="mt-20">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                { icon: "🚀", value: "2+", label: "Years Experience", color: "text-blue-500" },
+                { icon: "⚡", value: "3+", label: "Years Experience", color: "text-yellow-500" },
+                { icon: "🏢", value: "Happy Clients", color: "text-green-500" },
+                { icon: "📈", value: "99.9%", label: "Uptime Achieved", color: "text-purple-500" }
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  className="text-center p-6 bg-white dark:bg-zinc-900/50 backdrop-blur-sm border border-gray-200 dark:border-zinc-700/50 rounded-2xl hover:shadow-lg transition-all duration-300"
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="text-4xl mb-4">{stat.icon}</div>
+                  <div className={`text-3xl font-bold ${stat.color} mb-2`}>
+                    {stat.value}
+                  </div>
+                  <div className="text-gray-600 dark:text-gray-400 font-medium">
+                    {stat.label}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </motion.div>
       </div>

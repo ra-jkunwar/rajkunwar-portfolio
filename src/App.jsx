@@ -12,8 +12,9 @@ import FeaturedProjects from './components/FeaturedProjects'
 import Resume from './components/Resume'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import Experience from './components/Experience'
 import TechShowcase from './components/TechShowcase'
+import Blog from './components/Blog'
+import BlogDetail from './components/BlogDetail'
 import { ColorSchemeProvider } from './context/ColorSchemeContext'
 import SplashCursor from './components/SplashCursor'
 import RippleGrid from './components/RippleGrid'
@@ -101,13 +102,32 @@ function App() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
-                      <Hero />
-        <About />
-        <Experience />
-        <TechShowcase />
-        <FeaturedProjects />
+              <Hero />
+              <About />
               <Resume />
+              <TechShowcase />
+              <FeaturedProjects />
               <Contact />
+              <Footer />
+            </motion.div>
+          } />
+          <Route path="/blog" element={
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Blog />
+              <Footer />
+            </motion.div>
+          } />
+          <Route path="/blog/:slug" element={
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <BlogDetail />
               <Footer />
             </motion.div>
           } />
