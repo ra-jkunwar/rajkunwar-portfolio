@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Code, Database, FileText, Mail, User } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { useColorScheme } from '../context/ColorSchemeContext'
 import ThemeToggle from './ThemeToggle'
 
@@ -8,6 +9,7 @@ const Navbar = () => {
   const { currentColors } = useColorScheme()
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,8 +34,8 @@ const Navbar = () => {
         element.scrollIntoView({ behavior: 'smooth' })
       }
     } else {
-      // Handle external routes
-      window.location.href = href
+      // Use React Router navigate for better SPA routing
+      navigate(href)
     }
     setIsOpen(false)
   }

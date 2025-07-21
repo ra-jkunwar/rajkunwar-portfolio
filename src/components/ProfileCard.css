@@ -254,19 +254,25 @@
 }
 
 .pc-handle {
+  font-family: 'Manrope', 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.9);
   line-height: 1;
+  letter-spacing: -0.01em;
 }
 
 .pc-status {
+  font-family: 'Manrope', 'Inter', sans-serif;
   font-size: 14px;
+  font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
   line-height: 1;
+  letter-spacing: -0.005em;
 }
 
 .pc-contact-btn {
+  font-family: 'Manrope', 'Inter', sans-serif;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   padding: 8px 16px;
@@ -276,6 +282,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   backdrop-filter: blur(10px);
+  letter-spacing: -0.01em;
 }
 
 .pc-contact-btn:hover {
@@ -303,7 +310,8 @@
 }
 
 .pc-details h3 {
-  font-weight: 600;
+  font-family: 'Space Grotesk', 'Manrope', 'Inter', sans-serif;
+  font-weight: 700;
   margin: 0;
   font-size: min(5svh, 3em);
   margin: 0;
@@ -312,10 +320,13 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 .pc-details p {
-  font-weight: 600;
+  font-family: 'Manrope', 'Inter', sans-serif;
+  font-weight: 500;
   position: relative;
   top: -12px;
   white-space: nowrap;
@@ -327,6 +338,8 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
 @keyframes glow-bg {
@@ -360,11 +373,13 @@
   }
 
   .pc-details h3 {
-    font-size: min(4svh, 2.5em);
+    font-size: min(4.5svh, 2.5em);
+    letter-spacing: -0.025em;
   }
 
   .pc-details p {
     font-size: 14px;
+    letter-spacing: -0.01em;
   }
 
   .pc-user-info {
@@ -385,15 +400,18 @@
 
   .pc-handle {
     font-size: 13px;
+    font-weight: 500;
   }
 
   .pc-status {
     font-size: 10px;
+    font-weight: 400;
   }
 
   .pc-contact-btn {
     padding: 6px 12px;
     font-size: 11px;
+    font-weight: 600;
   }
 }
 

@@ -64,7 +64,37 @@ export default {
       },
       fontFamily: {
         'sans': [
-          'Inter Variable',
+          'Manrope',
+          'Inter',
+          'Space Grotesk',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
+          'Arial',
+          'sans-serif'
+        ],
+        'display': [
+          'Space Grotesk',
+          'Manrope',
+          'Inter',
+          'SF Pro Display',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'sans-serif'
+        ],
+        'heading': [
+          'Space Grotesk',
+          'Manrope',
+          'Inter',
+          'SF Pro Display',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'sans-serif'
+        ],
+        'body': [
+          'Manrope',
           'Inter',
           '-apple-system',
           'BlinkMacSystemFont',
@@ -75,9 +105,7 @@ export default {
           'sans-serif'
         ],
         'mono': [
-          'JetBrains Mono Variable',
           'JetBrains Mono',
-          'Fira Code Variable',
           'Fira Code',
           'SF Mono',
           'Monaco',
@@ -87,24 +115,6 @@ export default {
           'Menlo',
           'Consolas',
           'monospace'
-        ],
-        'display': [
-          'Cal Sans',
-          'SF Pro Display',
-          '-apple-system',
-          'BlinkMacSystemFont',
-          'Inter Variable',
-          'Inter',
-          'sans-serif'
-        ],
-        'heading': [
-          'Clash Display Variable',
-          'Clash Display',
-          'Cal Sans',
-          'SF Pro Display',
-          'Inter Variable',
-          'Inter',
-          'sans-serif'
         ]
       },
       animation: {
