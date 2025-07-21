@@ -33,6 +33,9 @@
   transform: translate3d(0, 0, 0.1px);
   position: relative;
   touch-action: none;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 400px;
 }
 
 .pc-card-wrapper::before {

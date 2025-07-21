@@ -317,7 +317,7 @@ const FeaturedProjects = () => {
               <Star className="w-6 h-6 mr-2 text-green-600 dark:text-green-400" />
               Production Projects
             </h3>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-12">
               {featuredProjects.map((project, index) => (
                 <motion.div
                   key={project.id}
@@ -332,7 +332,7 @@ const FeaturedProjects = () => {
                   </div>
 
                   {/* Project Image */}
-                  <div className="relative h-48 overflow-hidden">
+                  <div className="relative h-48 sm:h-56 lg:h-48 overflow-hidden">
                     <motion.img
                       src={project.image}
                       alt={project.title}
@@ -342,40 +342,49 @@ const FeaturedProjects = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     
                     {/* Overlay Icons */}
-                    <div className="absolute bottom-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      {project.github && (
-                        <motion.a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="flex space-x-4">
+                        {project.github && (
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              window.open(project.github, '_blank')
+                            }}
+                            className="p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
+                          >
+                            <Github className="w-5 h-5" />
+                          </motion.button>
+                        )}
+                        {project.live && (
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              window.open(project.live, '_blank')
+                            }}
+                            className="p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
+                          >
+                            <ExternalLink className="w-5 h-5" />
+                          </motion.button>
+                        )}
+                        <motion.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
-                          onClick={(e) => e.stopPropagation()}
+                          className="p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
                         >
-                          <Github className="w-4 h-4" />
-                        </motion.a>
-                      )}
-                      {project.live && (
-                        <motion.a
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                        </motion.a>
-                      )}
+                          <Eye className="w-5 h-5" />
+                        </motion.button>
+                      </div>
                     </div>
                   </div>
 
                   {/* Project Content */}
-                  <div className="p-6">
+                  <div className="p-4 sm:p-6">
                     <div className="flex items-start justify-between mb-3">
-                      <h4 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary-600 transition-colors">
+                      <h4 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary-600 transition-colors">
                         {project.title}
                       </h4>
                       <span className="text-sm text-gray-500 dark:text-gray-400">
@@ -383,15 +392,15 @@ const FeaturedProjects = () => {
                       </span>
                     </div>
 
-                    <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
+                    <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2 text-sm sm:text-base">
                       {project.shortDesc}
                     </p>
 
                     {/* Metrics */}
-                    <div className="grid grid-cols-3 gap-4 mb-4">
+                    <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-4">
                       {Object.entries(project.metrics).map(([key, value]) => (
                         <div key={key} className="text-center">
-                          <div className="text-lg font-bold text-green-600 dark:text-green-400">
+                          <div className="text-sm sm:text-lg font-bold text-green-600 dark:text-green-400">
                             {value}
                           </div>
                           <div className="text-xs text-gray-500 dark:text-gray-400 capitalize">
@@ -476,14 +485,14 @@ const FeaturedProjects = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4"
             onClick={() => setSelectedProject(null)}
           >
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
-              className="bg-white dark:bg-zinc-900/80 backdrop-blur-sm border border-gray-200 dark:border-zinc-700/50 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl dark:shadow-green-500/5"
+              className="bg-white dark:bg-zinc-900/80 backdrop-blur-sm border border-gray-200 dark:border-zinc-700/50 rounded-2xl max-w-4xl w-full max-h-[95vh] overflow-y-auto shadow-2xl dark:shadow-green-500/5"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
@@ -491,27 +500,27 @@ const FeaturedProjects = () => {
                 <img
                   src={selectedProject.image}
                   alt={selectedProject.title}
-                  className="w-full h-64 object-cover rounded-t-2xl"
+                  className="w-full h-48 sm:h-64 object-cover rounded-t-2xl"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-t-2xl" />
                 
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="absolute top-4 right-4 p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
+                  className="absolute top-2 sm:top-4 right-2 sm:right-4 p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
 
-                <div className="absolute bottom-6 left-6 text-white">
-                  <h3 className="text-3xl font-bold mb-2">{selectedProject.title}</h3>
-                  <div className="flex items-center space-x-4">
+                <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 text-white">
+                  <h3 className="text-2xl sm:text-3xl font-bold mb-2">{selectedProject.title}</h3>
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-4">
                     <span className="flex items-center space-x-1">
                       <Calendar className="w-4 h-4" />
-                      <span>{selectedProject.year}</span>
+                      <span className="text-sm">{selectedProject.year}</span>
                     </span>
                     <span className="flex items-center space-x-1">
                       <Users className="w-4 h-4" />
-                      <span>{selectedProject.impact}</span>
+                      <span className="text-sm">{selectedProject.impact}</span>
                     </span>
                     <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                       selectedProject.status === 'Production' ? 'bg-green-500' :
@@ -526,20 +535,20 @@ const FeaturedProjects = () => {
               </div>
 
               {/* Modal Content */}
-              <div className="p-8">
+              <div className="p-4 sm:p-6 lg:p-8">
                 {/* Description */}
-                <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed text-lg">
+                <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed text-base sm:text-lg">
                   {selectedProject.description}
                 </p>
 
                 {/* Metrics */}
-                <div className="grid grid-cols-3 gap-6 mb-8">
+                <div className="grid grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
                   {Object.entries(selectedProject.metrics).map(([key, value]) => (
                     <div key={key} className="text-center">
-                                              <div className="text-2xl font-bold text-green-600 dark:text-green-400 mb-1">
+                      <div className="text-xl sm:text-2xl font-bold text-green-600 dark:text-green-400 mb-1">
                         {value}
                       </div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400 capitalize">
+                      <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 capitalize">
                         {key}
                       </div>
                     </div>
@@ -547,8 +556,8 @@ const FeaturedProjects = () => {
                 </div>
 
                 {/* Features */}
-                <div className="mb-8">
-                  <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                <div className="mb-6 sm:mb-8">
+                  <h4 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
                     <Award className="w-5 h-5 mr-2" />
                     Key Features
                   </h4>
@@ -556,23 +565,23 @@ const FeaturedProjects = () => {
                     {selectedProject.features.map((feature, index) => (
                       <div key={index} className="flex items-start space-x-2">
                         <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                        <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                        <span className="text-sm sm:text-base text-gray-700 dark:text-gray-300">{feature}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 {/* Tech Stack */}
-                <div className="mb-8">
-                  <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                <div className="mb-6 sm:mb-8">
+                  <h4 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
                     <Code className="w-5 h-5 mr-2" />
-                    Technology Stack
+                    Tech Stack
                   </h4>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-2">
                     {selectedProject.tech.map((tech, index) => (
                       <span
                         key={index}
-                        className="px-4 py-2 rounded-lg text-sm font-medium bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg transition-shadow"
+                        className="px-3 py-1 text-xs sm:text-sm rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium"
                       >
                         {tech}
                       </span>
@@ -581,16 +590,16 @@ const FeaturedProjects = () => {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex space-x-4">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   {selectedProject.github && (
                     <motion.a
                       href={selectedProject.github}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`
-                        flex items-center space-x-2 px-6 py-3 rounded-lg font-medium
+                        flex items-center justify-center space-x-2 px-6 py-3 rounded-lg font-medium
                         bg-gray-800 text-white hover:bg-gray-700 transition-colors
-                        shadow-lg hover:shadow-xl
+                        shadow-lg hover:shadow-xl w-full sm:w-auto
                       `}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
@@ -604,7 +613,7 @@ const FeaturedProjects = () => {
                       href={selectedProject.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center space-x-2 px-6 py-3 rounded-lg font-medium bg-green-600 hover:bg-green-700 text-white shadow-lg hover:shadow-xl transition-shadow"
+                      className="flex items-center justify-center space-x-2 px-6 py-3 rounded-lg font-medium bg-green-600 hover:bg-green-700 text-white shadow-lg hover:shadow-xl transition-shadow w-full sm:w-auto"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >

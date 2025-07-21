@@ -8,15 +8,27 @@ const MagicBento = ({ projects = [] }) => {
 
   // Define different sizes for bento grid items
   const getSizeClass = (index) => {
-    const patterns = [
-      'col-span-2 row-span-2', // Large
+    // Mobile-first approach - single column on mobile
+    const mobilePatterns = [
+      'col-span-1 row-span-1', // Mobile: all single column
+      'col-span-1 row-span-1',
+      'col-span-1 row-span-1',
+      'col-span-1 row-span-1',
+      'col-span-1 row-span-1',
+      'col-span-1 row-span-1',
+    ]
+    
+    // Tablet and desktop patterns
+    const desktopPatterns = [
+      'col-span-1 sm:col-span-2 lg:col-span-2 row-span-2', // Large
       'col-span-1 row-span-1', // Small
-      'col-span-1 row-span-2', // Tall
-      'col-span-2 row-span-1', // Wide
+      'col-span-1 sm:col-span-1 lg:col-span-1 row-span-2', // Tall
+      'col-span-1 sm:col-span-2 lg:col-span-2 row-span-1', // Wide
       'col-span-1 row-span-1', // Small
       'col-span-1 row-span-1', // Small
     ]
-    return patterns[index % patterns.length]
+    
+    return desktopPatterns[index % desktopPatterns.length]
   }
 
   const getContentLayout = (index, project) => {
@@ -165,7 +177,7 @@ const MagicBento = ({ projects = [] }) => {
   }
 
   return (
-    <div className="grid grid-cols-4 auto-rows-[160px] gap-4 p-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[160px] gap-4 p-4">
       {projects.map((project, index) => (
         <motion.div
           key={project.id || index}

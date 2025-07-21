@@ -79,7 +79,7 @@ const About = () => {
             <motion.div variants={itemVariants}>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                 {/* Profile Card */}
-                <div className="space-y-4 flex flex-col items-center">
+                <div className="space-y-4 flex flex-col items-center justify-center lg:justify-start">
                   <div className="text-center">
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                       Professional Profile
@@ -88,12 +88,14 @@ const About = () => {
                       🎨 Hover to experience the 3D tilt effect!
                     </p>
                   </div>
-                  <ProfileCard 
-                    className="w-full max-w-sm mx-auto" 
-                    onContactClick={() => {
-                      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-                    }}
-                  />
+                  <div className="w-full flex justify-center">
+                    <ProfileCard 
+                      className="w-full max-w-sm mx-auto" 
+                      onContactClick={() => {
+                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                      }}
+                    />
+                  </div>
                 </div>
                 
                 {/* Additional Info Cards */}
