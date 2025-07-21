@@ -6,13 +6,13 @@ export const portfolioData = {
   personal: {
     name: "Raj Kunwar Singh",
     title: "Software Engineer",
-    email: "rajkunwarsingh1729@gmail.com",
+    email: "rajkunwar.it@gmail.com",
     phone: "+91 9140024467",
     location: "Delhi, India",
     website: "rajkunwarsingh.dev",
     handle: "rajkunwar23",
     status: "Available for work",
-    avatarUrl: "/WhatsApp Image 2025-07-21 at 02.52.08.jpeg",
+    avatarUrl: "/self.jpeg",
     resumeUrl: "/RajKunwarSingh.pdf"
   },
 
