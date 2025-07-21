@@ -7,20 +7,20 @@ export const portfolioData = {
     name: "Raj Kunwar Singh",
     title: "Software Engineer",
     email: "rajkunwar.it@gmail.com",
-    phone: "+91 9140024467",
+    phone: "+91 7974709460",
     location: "Delhi, India",
-    website: "rajkunwarsingh.dev",
-    handle: "rajkunwar23",
+    website: "https://rajkunwar-portfolio-mdsr.vercel.app",
+    handle: "ra_jkunwar",
     status: "Available for work",
-    avatarUrl: "/self.jpeg",
+    avatarUrl: "/self.png",
     resumeUrl: "/RajKunwarSingh.pdf"
   },
 
   // Social Links
   social: {
-    github: "https://github.com/rajkunwar23",
-    linkedin: "https://linkedin.com/in/raj-kunwar-singh23",
-    instagram: "https://instagram.com/raj_kunwar23"
+    github: "https://github.com/ra-jkunwar",
+    linkedin: "https://www.linkedin.com/in/raj-kunwar-singh-7593641a6/",
+    instagram: "https://www.instagram.com/kun_war_raj"
   },
 
   // Hero Section

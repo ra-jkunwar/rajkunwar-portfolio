@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useCallback, useMemo } from "react";
 import "./ProfileCard.css";
 import { portfolioData } from '../data/portfolioData';
 
+// Import the image directly as a fallback
+import selfImage from '../assets/self.png';
+
 const DEFAULT_BEHIND_GRADIENT =
   "radial-gradient(farthest-side circle at var(--pointer-x) var(--pointer-y),hsla(266,100%,90%,var(--card-opacity)) 4%,hsla(266,50%,80%,calc(var(--card-opacity)*0.75)) 10%,hsla(266,25%,70%,calc(var(--card-opacity)*0.5)) 50%,hsla(266,0%,60%,0) 100%),radial-gradient(35% 52% at 55% 20%,#00ffaac4 0%,#073aff00 100%),radial-gradient(100% 100% at 50% 50%,#00c1ffff 1%,#073aff00 76%),conic-gradient(from 124deg at 50% 50%,#c137ffff 0%,#07c6ffff 40%,#07c6ffff 60%,#c137ffff 100%)";
 
@@ -34,7 +37,7 @@ const easeInOutCubic = (x) =>
   x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 
 const ProfileCardComponent = ({
-  avatarUrl = "/self.png",
+  avatarUrl = portfolioData.personal.avatarUrl,
   iconUrl,
   grainUrl,
   behindGradient,
@@ -42,7 +45,7 @@ const ProfileCardComponent = ({
   showBehindGradient = true,
   className = "",
   enableTilt = true,
-  miniAvatarUrl = "/self.png",
+  miniAvatarUrl = portfolioData.personal.avatarUrl,
   name = portfolioData.personal.name,
   title = portfolioData.personal.title,
   handle = portfolioData.personal.handle,
@@ -53,6 +56,17 @@ const ProfileCardComponent = ({
 }) => {
   const wrapRef = useRef(null);
   const cardRef = useRef(null);
+
+  // Get the image URL with fallback
+  const getImageUrl = useCallback((url) => {
+    // For Vercel deployment, prefer the imported image
+    if (import.meta.env.PROD) {
+      return selfImage;
+    }
+    
+    // For development, try the public folder path
+    return url || selfImage;
+  }, []);
 
   const animationHandlers = useMemo(() => {
     if (!enableTilt) return null;
@@ -240,6 +254,25 @@ const ProfileCardComponent = ({
     onContactClick?.();
   }, [onContactClick]);
 
+  const handleImageError = useCallback((e, isMini = false) => {
+    const target = e.target;
+    console.log(`Image failed to load: ${target.src}`);
+    
+    // Try fallback URLs
+    const fallbackUrls = isMini 
+      ? [miniAvatarUrl?.startsWith('/') ? miniAvatarUrl.slice(1) : miniAvatarUrl, selfImage]
+      : [avatarUrl?.startsWith('/') ? avatarUrl.slice(1) : avatarUrl, selfImage];
+    
+    const currentSrc = target.src;
+    const nextUrl = fallbackUrls.find(url => url && !currentSrc.includes(url));
+    
+    if (nextUrl) {
+      target.src = nextUrl;
+    } else {
+      target.style.display = "none";
+    }
+  }, [avatarUrl, miniAvatarUrl]);
+
   return (
     <div
       ref={wrapRef}
@@ -253,27 +286,20 @@ const ProfileCardComponent = ({
           <div className="pc-content pc-avatar-content">
             <img
               className="avatar"
-              src={avatarUrl}
+              src={getImageUrl(avatarUrl)}
               alt={`${name || "User"} avatar`}
               loading="lazy"
-              onError={(e) => {
-                const target = e.target;
-                target.style.display = "none";
-              }}
+              onError={(e) => handleImageError(e, false)}
             />
             {showUserInfo && (
               <div className="pc-user-info">
                 <div className="pc-user-details">
                   <div className="pc-mini-avatar">
                     <img
-                      src={miniAvatarUrl || avatarUrl}
+                      src={getImageUrl(miniAvatarUrl || avatarUrl)}
                       alt={`${name || "User"} mini avatar`}
                       loading="lazy"
-                      onError={(e) => {
-                        const target = e.target;
-                        target.style.opacity = "0.5";
-                        target.src = avatarUrl;
-                      }}
+                      onError={(e) => handleImageError(e, true)}
                     />
                   </div>
                   <div className="pc-user-text">
